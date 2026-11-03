@@ -2,15 +2,15 @@ import AudioToolbox
 import CoreAudio
 import Foundation
 
-/// Caja compartida entre la UI y el hilo de audio. Leer/escribir un Float es seguro aquí.
+/// Box shared between the UI and the audio thread. Reading/writing a Float is safe here.
 final class GainBox: @unchecked Sendable {
     var value: Float
     init(_ value: Float) { self.value = value }
 }
 
-/// Controla el volumen de UN proceso:
-/// silencia su salida original, captura su audio, lo multiplica por `volume`
-/// y lo reproduce en el dispositivo de salida.
+/// Controls the volume of a SINGLE process:
+/// mutes its original output, captures its audio, multiplies it by `volume`
+/// and plays it back on the output device.
 final class AppVolumeTap {
     enum TapError: Error, CustomStringConvertible {
         case noOutputDevice
@@ -22,12 +22,12 @@ final class AppVolumeTap {
 
         var description: String {
             switch self {
-            case .noOutputDevice: "no hay dispositivo de salida"
-            case .createTap(let s): "no se pudo crear el tap (\(s))"
-            case .unsupportedFormat: "formato de audio no soportado"
-            case .createAggregate(let s): "no se pudo crear el dispositivo agregado (\(s))"
-            case .createIOProc(let s): "no se pudo crear el IOProc (\(s))"
-            case .start(let s): "no se pudo iniciar el audio (\(s))"
+            case .noOutputDevice: "no output device available"
+            case .createTap(let s): "could not create the process tap (\(s))"
+            case .unsupportedFormat: "unsupported audio format"
+            case .createAggregate(let s): "could not create the aggregate device (\(s))"
+            case .createIOProc(let s): "could not create the IOProc (\(s))"
+            case .start(let s): "could not start audio (\(s))"
             }
         }
     }
@@ -49,7 +49,7 @@ final class AppVolumeTap {
             throw TapError.noOutputDevice
         }
 
-        // 1. Crear el tap: captura el audio del proceso y silencia su salida normal
+        // 1. Create the tap: captures the process audio and mutes its normal output
         let description = CATapDescription(stereoMixdownOfProcesses: [process])
         description.uuid = UUID()
         description.name = "SoundMaster Tap"
@@ -59,7 +59,7 @@ final class AppVolumeTap {
         var status = AudioHardwareCreateProcessTap(description, &tapID)
         guard status == noErr else { throw TapError.createTap(status) }
 
-        // 2. Revisar el formato del tap: esperamos Float32 PCM
+        // 2. Check the tap format: Float32 PCM is expected
         let format: AudioStreamBasicDescription = tapID.read(kAudioTapPropertyFormat,
                                                              default: AudioStreamBasicDescription())
         guard format.mFormatID == kAudioFormatLinearPCM,
@@ -70,7 +70,7 @@ final class AppVolumeTap {
         }
         let tapChannels = Int(format.mChannelsPerFrame)
 
-        // 3. Dispositivo agregado privado: entrada = tap, salida = tus bocinas
+        // 3. Private aggregate device: input = tap, output = speakers
         let aggregate: [String: Any] = [
             kAudioAggregateDeviceNameKey: "SoundMaster Aggregate",
             kAudioAggregateDeviceUIDKey: UUID().uuidString,
@@ -90,7 +90,7 @@ final class AppVolumeTap {
             throw TapError.createAggregate(status)
         }
 
-        // 4. IOProc: se ejecuta en el hilo de tiempo real cada pocos milisegundos
+        // 4. IOProc: runs on the real-time thread every few milliseconds
         let gain = self.gain
         status = AudioDeviceCreateIOProcIDWithBlock(&ioProcID, aggregateID, nil) { _, input, _, output, _ in
             AppVolumeTap.render(input: input, output: output, tapChannels: tapChannels, gain: gain.value)
@@ -100,7 +100,7 @@ final class AppVolumeTap {
             throw TapError.createIOProc(status)
         }
 
-        // 5. Arrancar
+        // 5. Start
         status = AudioDeviceStart(aggregateID, ioProcID)
         guard status == noErr else {
             invalidate()
@@ -110,7 +110,7 @@ final class AppVolumeTap {
 
     deinit { invalidate() }
 
-    /// Detiene y destruye todo. Si no se hace, la app quedaría silenciada.
+    /// Stops and tears everything down. Otherwise the app would remain muted.
     func invalidate() {
         if aggregateID != .unknown, let ioProcID {
             AudioDeviceStop(aggregateID, ioProcID)
@@ -127,15 +127,15 @@ final class AppVolumeTap {
         }
     }
 
-    // MARK: - Hilo de audio (sin print, sin reservar memoria, sin locks)
+    // MARK: - Audio thread (no printing, no allocations, no locks)
 
     private struct Source {
         let samples: UnsafeMutablePointer<Float>
-        let stride: Int   // canales intercalados en ese buffer
+        let stride: Int   // interleaved channels in that buffer
         let frames: Int
     }
 
-    /// Encuentra el canal número `channel` dentro de la lista de buffers de entrada.
+    /// Finds channel number `channel` within the input buffer list.
     private static func source(in buffers: UnsafeMutableAudioBufferListPointer, channel: Int) -> Source? {
         var base = 0
         for buffer in buffers {
@@ -157,8 +157,8 @@ final class AppVolumeTap {
         let inputs = UnsafeMutableAudioBufferListPointer(UnsafeMutablePointer(mutating: input))
         let outputs = UnsafeMutableAudioBufferListPointer(output)
 
-        // Los canales del tap son los ÚLTIMOS de la entrada
-        // (antes pueden venir micrófonos del dispositivo de salida).
+        // The tap channels are the LAST ones in the input
+        // (microphones of the output device may come first).
         var totalInput = 0
         for buffer in inputs { totalInput += Int(buffer.mNumberChannels) }
         let tapStart = max(0, totalInput - tapChannels)
@@ -178,7 +178,7 @@ final class AppVolumeTap {
                     copied = min(frames, src.frames)
                     for f in 0..<copied {
                         let sample = src.samples[f * src.stride] * gain
-                        dst[f * channels + c] = min(1, max(-1, sample))   // evita distorsión al amplificar
+                        dst[f * channels + c] = min(1, max(-1, sample))   // prevents clipping when boosting
                     }
                 }
                 for f in copied..<frames { dst[f * channels + c] = 0 }

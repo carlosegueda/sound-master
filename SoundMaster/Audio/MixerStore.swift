@@ -3,11 +3,11 @@ import AudioToolbox
 import CoreAudio
 import Observation
 
-/// El cerebro del mezclador: une el monitor de procesos, los taps y la UI.
+/// The mixer core: connects the process monitor, the taps and the UI.
 @MainActor
 @Observable
 final class MixerStore {
-    /// Una fila del mezclador = una app (puede tener varios procesos).
+    /// One mixer row = one app (which may have several processes).
     struct AppChannel: Identifiable, Equatable {
         let id: String
         let name: String
@@ -19,16 +19,16 @@ final class MixerStore {
         }
     }
 
-    // MARK: Estado que ve la UI
+    // MARK: State observed by the UI
     private(set) var channels: [AppChannel] = []
     private(set) var outputName = ""
     private(set) var masterVolume: Float = 0
     private(set) var hasMasterVolume = false
     private(set) var errorMessage: String?
-    private var volumes: [String: Double]   // por app, se guarda en disco
+    private var volumes: [String: Double]   // per app, persisted to disk
     private var muted: Set<String>
 
-    // MARK: Estado interno
+    // MARK: Internal state
     @ObservationIgnored private var taps: [AudioObjectID: AppVolumeTap] = [:]
     @ObservationIgnored private var failed: Set<AudioObjectID> = []
     @ObservationIgnored private let monitor = ProcessMonitor()
@@ -54,7 +54,7 @@ final class MixerStore {
         monitor.start()
     }
 
-    // MARK: - Acciones desde la UI
+    // MARK: - UI actions
 
     func volume(for id: String) -> Float { Float(volumes[id] ?? 1) }
     func isMuted(_ id: String) -> Bool { muted.contains(id) }
@@ -76,17 +76,17 @@ final class MixerStore {
         outputDevice.write(Self.masterSelector, scope: Self.outputScope, value: Float32(value))
     }
 
-    // MARK: - Procesos
+    // MARK: - Processes
 
     private func update(with processes: [AudioProcess]) {
-        // Cerrar taps de procesos que ya no existen
+        // Close taps for processes that no longer exist
         let alive = Set(processes.map(\.objectID))
         for id in taps.keys where !alive.contains(id) {
             taps.removeValue(forKey: id)?.invalidate()
         }
         failed.formIntersection(alive)
 
-        // Agrupar por app: solo las que suenan o que ya controlamos
+        // Group by app: only those playing audio or already controlled
         var grouped: [String: AppChannel] = [:]
         for process in processes where process.isPlaying || taps[process.objectID] != nil {
             grouped[process.key, default: AppChannel(id: process.key, name: process.name,
@@ -98,7 +98,7 @@ final class MixerStore {
             .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
         if next != channels { channels = next }
 
-        // Aplicar volúmenes guardados a apps que acaban de aparecer
+        // Apply saved volumes to newly appeared apps
         for channel in channels { applyGain(to: channel.id) }
     }
 
@@ -115,24 +115,24 @@ final class MixerStore {
                 tap.volume = gain
                 continue
             }
-            // Al 100 % no hace falta tap: el audio va directo, sin latencia extra
+            // At 100% no tap is needed: audio goes straight through with no added latency
             guard gain != 1, !failed.contains(processID) else { continue }
             do {
                 taps[processID] = try AppVolumeTap(process: processID, outputDevice: outputDevice, volume: gain)
                 errorMessage = nil
             } catch {
                 failed.insert(processID)
-                errorMessage = "No se pudo controlar \(channel.name): \(error)"
+                errorMessage = "Could not control \(channel.name): \(error)"
             }
         }
     }
 
-    // MARK: - Dispositivo de salida
+    // MARK: - Output device
 
     private func outputDeviceChanged() {
         outputDevice = .defaultOutputDevice
         configureOutput()
-        // Los taps apuntan al dispositivo anterior: hay que recrearlos
+        // Taps point to the previous device and must be recreated
         for tap in taps.values { tap.invalidate() }
         taps.removeAll()
         failed.removeAll()
@@ -140,7 +140,7 @@ final class MixerStore {
     }
 
     private func configureOutput() {
-        outputName = outputDevice.readString(kAudioObjectPropertyName) ?? "Salida desconocida"
+        outputName = outputDevice.readString(kAudioObjectPropertyName) ?? "Unknown output"
         hasMasterVolume = outputDevice.isSettable(Self.masterSelector, scope: Self.outputScope)
         readMasterVolume()
         masterListener = PropertyListener(object: outputDevice, selector: Self.masterSelector,
@@ -153,7 +153,7 @@ final class MixerStore {
         masterVolume = outputDevice.read(Self.masterSelector, scope: Self.outputScope, default: Float32(0))
     }
 
-    // MARK: - Guardar
+    // MARK: - Persistence
 
     private enum Keys {
         static let volumes = "appVolumes"

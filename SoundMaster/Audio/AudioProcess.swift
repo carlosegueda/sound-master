@@ -2,11 +2,11 @@ import AppKit
 import CoreAudio
 import UniformTypeIdentifiers
 
-/// Un proceso que Core Audio conoce (cualquier programa que abrió el audio).
+/// A process known to Core Audio (any program that has opened an audio connection).
 struct AudioProcess: Identifiable {
-    let objectID: AudioObjectID   // id del proceso dentro de Core Audio (NO es el PID)
+    let objectID: AudioObjectID   // Core Audio object ID of the process (NOT the PID)
     let pid: pid_t
-    let key: String               // agrupa procesos de la misma app (Chrome + sus Helpers)
+    let key: String               // groups processes of the same app (Chrome + its Helpers)
     let name: String
     let icon: NSImage
     var isPlaying: Bool
@@ -15,7 +15,7 @@ struct AudioProcess: Identifiable {
 
     init?(objectID: AudioObjectID) {
         let pid: pid_t = objectID.read(kAudioProcessPropertyPID, default: -1)
-        guard pid > 0, pid != getpid() else { return nil }   // ignoramos a SoundMaster
+        guard pid > 0, pid != getpid() else { return nil }   // ignore SoundMaster itself
 
         self.objectID = objectID
         self.pid = pid
@@ -25,18 +25,18 @@ struct AudioProcess: Identifiable {
         let path = Self.executablePath(of: pid)
 
         if let appURL = path.flatMap(Self.enclosingApp) {
-            // Proceso dentro de un .app (incluye "Google Chrome Helper" → "Google Chrome")
+            // Process inside an .app bundle (e.g. "Google Chrome Helper" → "Google Chrome")
             key = Bundle(url: appURL)?.bundleIdentifier ?? appURL.path
             name = Self.displayName(of: appURL)
             icon = NSWorkspace.shared.icon(forFile: appURL.path)
         } else if bundleID.hasPrefix("com.apple.WebKit") {
-            // Safari reproduce el audio desde un proceso de WebKit
+            // Safari plays audio from a WebKit process
             key = bundleID
             name = "Safari / WebKit"
             icon = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "com.apple.Safari")
                 .map { NSWorkspace.shared.icon(forFile: $0.path) } ?? Self.genericIcon
         } else {
-            // Herramientas de línea de comandos (afplay, etc.)
+            // Command-line tools (afplay, etc.)
             key = bundleID.isEmpty ? (path ?? "pid-\(pid)") : bundleID
             name = path.map { URL(fileURLWithPath: $0).lastPathComponent } ?? (bundleID.isEmpty ? "PID \(pid)" : bundleID)
             icon = path.map { NSWorkspace.shared.icon(forFile: $0) } ?? Self.genericIcon
@@ -48,7 +48,7 @@ struct AudioProcess: Identifiable {
         return running != 0
     }
 
-    // MARK: - Ayudantes
+    // MARK: - Helpers
 
     private static let genericIcon = NSWorkspace.shared.icon(for: .application)
 

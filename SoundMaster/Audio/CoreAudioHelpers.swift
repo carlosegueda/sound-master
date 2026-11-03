@@ -1,14 +1,14 @@
 import CoreAudio
 import Foundation
 
-// MARK: - Lectura y escritura de propiedades de Core Audio
+// MARK: - Reading and writing Core Audio properties
 
 extension AudioObjectID {
-    /// El objeto "sistema": de él cuelgan los dispositivos y los procesos.
+    /// The "system" object: owner of all devices and processes.
     static let system = AudioObjectID(kAudioObjectSystemObject)
     static let unknown = AudioObjectID(kAudioObjectUnknown)
 
-    /// Dispositivo de salida actual (bocinas, audífonos, AirPods…).
+    /// Current default output device (speakers, headphones, AirPods…).
     static var defaultOutputDevice: AudioObjectID {
         system.read(kAudioHardwarePropertyDefaultOutputDevice, default: unknown)
     }
@@ -18,7 +18,7 @@ extension AudioObjectID {
         AudioObjectPropertyAddress(mSelector: selector, mScope: scope, mElement: kAudioObjectPropertyElementMain)
     }
 
-    /// Lee una propiedad de tamaño fijo (UInt32, Float32, pid_t, AudioObjectID, structs…).
+    /// Reads a fixed-size property (UInt32, Float32, pid_t, AudioObjectID, structs…).
     func read<T: BitwiseCopyable>(_ selector: AudioObjectPropertySelector,
                  scope: AudioObjectPropertyScope = kAudioObjectPropertyScopeGlobal,
                  default value: T) -> T {
@@ -29,7 +29,7 @@ extension AudioObjectID {
         return status == noErr ? result : value
     }
 
-    /// Lee una propiedad de texto (nombre, UID, bundle ID).
+    /// Reads a string property (name, UID, bundle ID).
     func readString(_ selector: AudioObjectPropertySelector) -> String? {
         var address = propertyAddress(selector)
         var size = UInt32(MemoryLayout<Unmanaged<CFString>?>.size)
@@ -39,7 +39,7 @@ extension AudioObjectID {
         return value.takeRetainedValue() as String
     }
 
-    /// Lee una propiedad que es una lista de objetos (procesos, dispositivos…).
+    /// Reads a property containing a list of objects (processes, devices…).
     func readArray(_ selector: AudioObjectPropertySelector) -> [AudioObjectID] {
         var address = propertyAddress(selector)
         var size: UInt32 = 0
@@ -67,10 +67,10 @@ extension AudioObjectID {
     }
 }
 
-// MARK: - Escuchar cambios
+// MARK: - Listening for changes
 
-/// Avisa (en el hilo principal) cuando cambia una propiedad de Core Audio.
-/// Mientras el objeto exista, escucha; al liberarse, deja de escuchar.
+/// Notifies (on the main thread) when a Core Audio property changes.
+/// Listens for as long as the object is alive; stops listening when it is released.
 final class PropertyListener {
     private let object: AudioObjectID
     private var address: AudioObjectPropertyAddress

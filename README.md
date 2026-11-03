@@ -6,7 +6,7 @@ SoundMaster is a lightweight macOS menu bar utility that provides independent vo
 
 - **Per-application volume control** — Adjust the volume of each active application individually, from 0% up to 150%.
 - **Per-application mute** — Silence any application with a single click without affecting the rest of the system.
-- **Master volume** — Control the system output volume directly from the mixer when the active output device supports it.
+- **Master volume** — Control the system output volume directly from the mixer through the **Master** slider, when the active output device supports it.
 - **Automatic application detection** — Applications appear in the mixer as soon as they begin playing audio. Multiple processes belonging to the same application are grouped into a single channel.
 - **Persistent settings** — Volume and mute preferences are saved per application and restored automatically.
 - **Output device awareness** — SoundMaster follows changes to the default output device and reapplies all settings transparently.
@@ -53,5 +53,4 @@ For each application whose volume differs from 100%, SoundMaster creates a priva
 
 ## Known limitations
 
-- The user interface is currently available in Spanish only.
 - The master volume control is hidden for output devices that do not expose a software-adjustable volume.

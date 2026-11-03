@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// El mezclador completo que aparece al hacer clic en el ícono de la barra de menú.
+/// The full mixer shown when clicking the menu bar icon.
 struct MixerView: View {
     @Environment(MixerStore.self) private var store
 
@@ -15,7 +15,7 @@ struct MixerView: View {
             Divider()
 
             if store.channels.isEmpty {
-                Text("Ninguna app está reproduciendo audio")
+                Text("No apps are playing audio")
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 8)
@@ -51,7 +51,7 @@ struct MixerView: View {
         HStack(spacing: 10) {
             Image(systemName: "speaker.wave.3.fill")
                 .frame(width: 22)
-            Text("General")
+            Text("Master")
                 .fontWeight(.semibold)
                 .frame(width: 118, alignment: .leading)
             Slider(value: Binding(get: { store.masterVolume },
@@ -67,7 +67,7 @@ struct MixerView: View {
     private var footer: some View {
         HStack {
             Spacer()
-            Button("Salir") {
+            Button("Quit") {
                 NSApp.terminate(nil)
             }
             .keyboardShortcut("q")

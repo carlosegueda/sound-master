@@ -1,7 +1,7 @@
 import CoreAudio
 import Foundation
 
-/// Vigila qué procesos usan audio y avisa cada vez que algo cambia.
+/// Watches which processes use audio and notifies whenever something changes.
 @MainActor
 final class ProcessMonitor {
     var onChange: (([AudioProcess]) -> Void)?
@@ -11,12 +11,12 @@ final class ProcessMonitor {
     private var timer: Timer?
 
     func start() {
-        // 1. Aviso inmediato cuando un proceso abre o cierra el audio
+        // 1. Immediate notification when a process opens or closes audio
         listener = PropertyListener(object: .system,
                                     selector: kAudioHardwarePropertyProcessObjectList) { [weak self] in
             self?.refresh()
         }
-        // 2. Revisión cada segundo para saber quién empezó o dejó de sonar
+        // 2. Poll every second to detect which processes started or stopped playing
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.refresh() }
         }
@@ -29,11 +29,11 @@ final class ProcessMonitor {
 
         for id in ids {
             if var known = cache[id] {
-                // Ya lo conocíamos: solo actualizamos si está sonando (barato)
+                // Already known: only update whether it is playing (cheap)
                 known.isPlaying = AudioProcess.isRunningOutput(id)
                 next[id] = known
             } else if let process = AudioProcess(objectID: id) {
-                // Proceso nuevo: calculamos nombre e ícono una sola vez
+                // New process: resolve name and icon only once
                 next[id] = process
             }
         }

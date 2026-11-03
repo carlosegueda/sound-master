@@ -13,7 +13,7 @@ targets:
       properties:
         LSUIElement: true
         CFBundleDisplayName: SoundMaster
-        NSAudioCaptureUsageDescription: "SoundMaster necesita acceso al audio de las apps para controlar el volumen de cada una."
+        NSAudioCaptureUsageDescription: "SoundMaster needs access to application audio to control the volume of each app."
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.soundmaster.app

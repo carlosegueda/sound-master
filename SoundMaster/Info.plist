@@ -23,6 +23,6 @@
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSAudioCaptureUsageDescription</key>
-	<string>SoundMaster necesita acceso al audio de las apps para controlar el volumen de cada una.</string>
+	<string>SoundMaster needs access to application audio to control the volume of each app.</string>
 </dict>
 </plist>

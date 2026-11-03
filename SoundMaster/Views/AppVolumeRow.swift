@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Una fila: ícono, nombre, botón de mute, slider y porcentaje.
+/// A row: icon, name, mute button, slider and percentage.
 struct AppVolumeRow: View {
     @Environment(MixerStore.self) private var store
     let channel: MixerStore.AppChannel
@@ -27,7 +27,7 @@ struct AppVolumeRow: View {
                     .frame(width: 18)
             }
             .buttonStyle(.borderless)
-            .help(muted ? "Activar sonido" : "Silenciar")
+            .help(muted ? "Unmute" : "Mute")
 
             Slider(value: Binding(get: { store.volume(for: channel.id) },
                                   set: { store.setVolume($0, for: channel.id) }),
