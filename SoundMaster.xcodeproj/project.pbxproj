@@ -11,6 +11,7 @@
 		412B6153FA47A70BFC50CB13 /* MixerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835BE5AE0B697F41C46FB51 /* MixerStore.swift */; };
 		543923041EF653B5C822D5A9 /* SoundMasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920BD61D7D79AC15FB081BB8 /* SoundMasterApp.swift */; };
 		6572DB24D6F4A28B0A608D3F /* AudioProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947B5F5C8BEF6B512F32FB4E /* AudioProcess.swift */; };
+		6EE2308B1D265BD2FCCA32D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A82249B6B9C8EF46E8FEEFD /* Assets.xcassets */; };
 		6F5465B2DE845CF33911A750 /* AppVolumeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93F3E92028E2323455C9878 /* AppVolumeRow.swift */; };
 		96395C396B9EFBD356899B64 /* MixerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579FA9871750B3C3A07A9BBF /* MixerView.swift */; };
 		F0B944CE9DC9F53D309057C7 /* ProcessMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D95159F65186A374AAC1FF /* ProcessMonitor.swift */; };
@@ -25,6 +26,7 @@
 		62D95159F65186A374AAC1FF /* ProcessMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessMonitor.swift; sourceTree = "<group>"; };
 		920BD61D7D79AC15FB081BB8 /* SoundMasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundMasterApp.swift; sourceTree = "<group>"; };
 		947B5F5C8BEF6B512F32FB4E /* AudioProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProcess.swift; sourceTree = "<group>"; };
+		9A82249B6B9C8EF46E8FEEFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9A55E5E88C5116DA1F3BD22 /* SoundMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D835BE5AE0B697F41C46FB51 /* MixerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerStore.swift; sourceTree = "<group>"; };
 		F93F3E92028E2323455C9878 /* AppVolumeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVolumeRow.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 		E283ED857F9C0802A165E926 /* SoundMaster */ = {
 			isa = PBXGroup;
 			children = (
+				9A82249B6B9C8EF46E8FEEFD /* Assets.xcassets */,
 				49DE1B2D279388C45252B418 /* Info.plist */,
 				920BD61D7D79AC15FB081BB8 /* SoundMasterApp.swift */,
 				DE34F0737C5C2068F44B6549 /* Audio */,
@@ -87,6 +90,7 @@
 			buildConfigurationList = 1AB0002EC12BEF408598D7A5 /* Build configuration list for PBXNativeTarget "SoundMaster" */;
 			buildPhases = (
 				94C6A31EAE19094476CF97D0 /* Sources */,
+				330E84C6064755AE4E8D1FD9 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -107,8 +111,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 5D7C0D2F336096B1DCB73C7A /* Build configuration list for PBXProject "SoundMaster" */;
 			developmentRegion = en;
@@ -128,6 +130,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		330E84C6064755AE4E8D1FD9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EE2308B1D265BD2FCCA32D9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		94C6A31EAE19094476CF97D0 /* Sources */ = {
@@ -220,6 +233,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SoundMaster/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SoundMaster;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -296,6 +311,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SoundMaster/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SoundMaster;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
