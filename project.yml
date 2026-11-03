@@ -1,0 +1,24 @@
+name: SoundMaster
+options:
+  bundleIdPrefix: com.soundmaster
+  deploymentTarget:
+    macOS: "15.0"
+targets:
+  SoundMaster:
+    type: application
+    platform: macOS
+    sources: [SoundMaster]
+    info:
+      path: SoundMaster/Info.plist
+      properties:
+        LSUIElement: true
+        CFBundleDisplayName: SoundMaster
+        NSAudioCaptureUsageDescription: "SoundMaster necesita acceso al audio de las apps para controlar el volumen de cada una."
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.soundmaster.app
+        SWIFT_VERSION: "5.0"
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGN_IDENTITY: "-"

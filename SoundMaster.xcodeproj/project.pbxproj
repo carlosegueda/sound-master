@@ -1,0 +1,334 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3457E4E80B2D097E0ADD8823 /* AppVolumeTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3F554B62F2F07E3003F27 /* AppVolumeTap.swift */; };
+		412B6153FA47A70BFC50CB13 /* MixerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D835BE5AE0B697F41C46FB51 /* MixerStore.swift */; };
+		543923041EF653B5C822D5A9 /* SoundMasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920BD61D7D79AC15FB081BB8 /* SoundMasterApp.swift */; };
+		6572DB24D6F4A28B0A608D3F /* AudioProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947B5F5C8BEF6B512F32FB4E /* AudioProcess.swift */; };
+		6F5465B2DE845CF33911A750 /* AppVolumeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93F3E92028E2323455C9878 /* AppVolumeRow.swift */; };
+		96395C396B9EFBD356899B64 /* MixerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579FA9871750B3C3A07A9BBF /* MixerView.swift */; };
+		F0B944CE9DC9F53D309057C7 /* ProcessMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D95159F65186A374AAC1FF /* ProcessMonitor.swift */; };
+		F6A743FE57F22812E9D603ED /* CoreAudioHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3688AA8A2E7756B4DBC0D607 /* CoreAudioHelpers.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1FF3F554B62F2F07E3003F27 /* AppVolumeTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVolumeTap.swift; sourceTree = "<group>"; };
+		3688AA8A2E7756B4DBC0D607 /* CoreAudioHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAudioHelpers.swift; sourceTree = "<group>"; };
+		49DE1B2D279388C45252B418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		579FA9871750B3C3A07A9BBF /* MixerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerView.swift; sourceTree = "<group>"; };
+		62D95159F65186A374AAC1FF /* ProcessMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessMonitor.swift; sourceTree = "<group>"; };
+		920BD61D7D79AC15FB081BB8 /* SoundMasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundMasterApp.swift; sourceTree = "<group>"; };
+		947B5F5C8BEF6B512F32FB4E /* AudioProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProcess.swift; sourceTree = "<group>"; };
+		C9A55E5E88C5116DA1F3BD22 /* SoundMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D835BE5AE0B697F41C46FB51 /* MixerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixerStore.swift; sourceTree = "<group>"; };
+		F93F3E92028E2323455C9878 /* AppVolumeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVolumeRow.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		A1AD8A98A0501ECEEC4E66D9 = {
+			isa = PBXGroup;
+			children = (
+				E283ED857F9C0802A165E926 /* SoundMaster */,
+				A756FF3AFB8F099E6300C0DA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A756FF3AFB8F099E6300C0DA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9A55E5E88C5116DA1F3BD22 /* SoundMaster.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D6699C1054CE18B75E2B1773 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F93F3E92028E2323455C9878 /* AppVolumeRow.swift */,
+				579FA9871750B3C3A07A9BBF /* MixerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DE34F0737C5C2068F44B6549 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				1FF3F554B62F2F07E3003F27 /* AppVolumeTap.swift */,
+				947B5F5C8BEF6B512F32FB4E /* AudioProcess.swift */,
+				3688AA8A2E7756B4DBC0D607 /* CoreAudioHelpers.swift */,
+				D835BE5AE0B697F41C46FB51 /* MixerStore.swift */,
+				62D95159F65186A374AAC1FF /* ProcessMonitor.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		E283ED857F9C0802A165E926 /* SoundMaster */ = {
+			isa = PBXGroup;
+			children = (
+				49DE1B2D279388C45252B418 /* Info.plist */,
+				920BD61D7D79AC15FB081BB8 /* SoundMasterApp.swift */,
+				DE34F0737C5C2068F44B6549 /* Audio */,
+				D6699C1054CE18B75E2B1773 /* Views */,
+			);
+			path = SoundMaster;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		934987ACAEC28E8C426661EF /* SoundMaster */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1AB0002EC12BEF408598D7A5 /* Build configuration list for PBXNativeTarget "SoundMaster" */;
+			buildPhases = (
+				94C6A31EAE19094476CF97D0 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SoundMaster;
+			packageProductDependencies = (
+			);
+			productName = SoundMaster;
+			productReference = C9A55E5E88C5116DA1F3BD22 /* SoundMaster.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A566EDAAA9735812D541B272 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 5D7C0D2F336096B1DCB73C7A /* Build configuration list for PBXProject "SoundMaster" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = A1AD8A98A0501ECEEC4E66D9;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A756FF3AFB8F099E6300C0DA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				934987ACAEC28E8C426661EF /* SoundMaster */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		94C6A31EAE19094476CF97D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F5465B2DE845CF33911A750 /* AppVolumeRow.swift in Sources */,
+				3457E4E80B2D097E0ADD8823 /* AppVolumeTap.swift in Sources */,
+				6572DB24D6F4A28B0A608D3F /* AudioProcess.swift in Sources */,
+				F6A743FE57F22812E9D603ED /* CoreAudioHelpers.swift in Sources */,
+				412B6153FA47A70BFC50CB13 /* MixerStore.swift in Sources */,
+				96395C396B9EFBD356899B64 /* MixerView.swift in Sources */,
+				F0B944CE9DC9F53D309057C7 /* ProcessMonitor.swift in Sources */,
+				543923041EF653B5C822D5A9 /* SoundMasterApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		38CC46B3F244D67645EBDC58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		9825294DBDFD68ACDD9584DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SoundMaster/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.soundmaster.app;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		ABA8A80714B2F239661640AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		BE560EA2BD43CAB6E75751D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SoundMaster/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.soundmaster.app;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1AB0002EC12BEF408598D7A5 /* Build configuration list for PBXNativeTarget "SoundMaster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9825294DBDFD68ACDD9584DB /* Debug */,
+				BE560EA2BD43CAB6E75751D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5D7C0D2F336096B1DCB73C7A /* Build configuration list for PBXProject "SoundMaster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38CC46B3F244D67645EBDC58 /* Debug */,
+				ABA8A80714B2F239661640AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A566EDAAA9735812D541B272 /* Project object */;
+}
